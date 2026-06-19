@@ -655,6 +655,74 @@
     .money-path strong { font-size: 17px; line-height: 1.2; }
     .money-path span { color: var(--muted); line-height: 1.4; font-size: 13px; }
 
+    .bottomline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .bottomline-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 15px;
+      min-height: 150px;
+      display: grid;
+      align-content: start;
+      gap: 9px;
+    }
+
+    .bottomline-card b {
+      width: fit-content;
+      border-radius: 999px;
+      padding: 6px 9px;
+      background: #fff4df;
+      color: var(--warn);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .bottomline-card strong {
+      font-size: 19px;
+      line-height: 1.15;
+    }
+
+    .bottomline-card span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.42;
+    }
+
+    .compliance-gates {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .gate-chip {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f6f9f6;
+      padding: 12px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .gate-chip strong {
+      color: var(--green);
+      font-size: 14px;
+    }
+
+    .gate-chip span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
     .three, .model { grid-template-columns: repeat(3, 1fr); }
 
     .mini-card {
@@ -856,7 +924,7 @@
     @media (max-width: 980px) {
       header .shell { align-items: flex-start; flex-direction: column; padding: 12px 0; }
       nav { justify-content: flex-start; }
-      .hero-grid, .three, .workflow, .faq-layout, .controls, .role-grid, .visual-band, .signal-grid, .bucket-map, .evidence-rail, .status-strip, .savings-board, .monetization-grid {
+      .hero-grid, .three, .workflow, .faq-layout, .controls, .role-grid, .visual-band, .signal-grid, .bucket-map, .evidence-rail, .status-strip, .savings-board, .monetization-grid, .bottomline-grid, .compliance-gates {
         grid-template-columns: 1fr;
       }
       .money-range { grid-template-columns: 1fr; }
@@ -959,7 +1027,7 @@
           </div>
           <div class="three">
             <div class="mini-card"><h3 id="missedCredit">$0</h3><p>Potential budget reduction flagged for review.</p></div>
-            <div class="mini-card"><h3 id="successFee">$0</h3><p>Example success fee at 2% of modeled recovery.</p></div>
+            <div class="mini-card"><h3 id="successFee">$0</h3><p>Example 6% savings fee if value is recovered.</p></div>
             <div class="mini-card"><h3 id="docsReady">70%</h3><p>Documentation readiness.</p></div>
           </div>
         </aside>
@@ -971,7 +1039,7 @@
         <div class="section-head">
           <div>
             <h2>Reduce the production budget, not just the paperwork</h2>
-            <p>Upload the budget. Find the leaks. Pay only when verified savings or recovered credit value is achieved.</p>
+            <p>Upload the budget. Follow NMFO/TRD rules. Find savings leaks. Pay only when verified savings or recovered credit value is achieved.</p>
           </div>
           <span class="pill">Only pay if you save</span>
         </div>
@@ -991,14 +1059,25 @@
             <div class="stack-row"><span>Certain-area</span><em><span style="width:25%"></span></em><strong>+10%</strong></div>
             <div class="save-callout">
               <b>$</b>
-              <div><strong>Up to $1.5M modeled budget reduction over the base scenario on $10M eligible spend.</strong><span>Assumption: this visual shows arithmetic only. The real claim depends on official eligibility, approvals, spend location, documentation, and caps shown in the source library.</span></div>
+              <div><strong>Up to $1.5M modeled budget reduction over the base scenario on $10M eligible spend.</strong><span>Assumption: this visual shows arithmetic only. The real claim depends on official eligibility, approvals, spend location, documentation, CPA/audit requirements when applicable, and credit-cap availability shown in the source library.</span></div>
             </div>
           </div>
         </div>
         <div class="monetization-grid" aria-label="Ways the website can monetize filmmaker savings">
           <div class="money-path"><b>1</b><strong>Upload the budget</strong><span>Free savings estimate: import top-sheet, payroll, AP, vendor, post, location, QPF, SLO, and NRCE lines to show a plain-English reimbursement range.</span></div>
-          <div class="money-path"><b>2</b><strong>Find budget leaks</strong><span>Flag eligible spend sitting in the wrong bucket, missing documentation, weak vendor coding, timing risk, and lines that may be moved or supported before spend locks.</span></div>
-          <div class="money-path"><b>3</b><strong>Pay only when you save</strong><span>Offer a bill-reduction-style option: no success fee unless recovered or protected credit value is achieved under agreed terms.</span></div>
+          <div class="money-path"><b>2</b><strong>Find budget leaks</strong><span>Flag spend in the wrong bucket, missing evidence, weak vendor coding, timing risk, and location or facility choices that could reduce the net production budget.</span></div>
+          <div class="money-path"><b>3</b><strong>Pay only when you save</strong><span>Example model: 6% of verified recovered or protected value, with no success fee unless agreed savings is achieved.</span></div>
+        </div>
+        <div class="bottomline-grid" aria-label="Triple bottom line revenue model">
+          <div class="bottomline-card"><b>Filmmakers</b><strong>Lower net budget</strong><span>Studios and independents see reimbursement range, leakage flags, documentation status, and a clear savings fee before engaging.</span></div>
+          <div class="bottomline-card"><b>New Mexico</b><strong>More qualified in-state spend</strong><span>The tool nudges budgets toward compliant local vendors, crew, facilities, post, and locations instead of letting spend drift out of state.</span></div>
+          <div class="bottomline-card"><b>Local owners</b><strong>Homes become revenue assets</strong><span>New Mexicans can list properties for filming, prepare the minimum 10 photos, and route production contact directly or through the Film Office.</span></div>
+        </div>
+        <div class="compliance-gates" aria-label="Compliance gates before claiming savings">
+          <div class="gate-chip"><strong>NMFO first</strong><span>Project registration, Film Office approval, and program-specific approvals drive the claim path.</span></div>
+          <div class="gate-chip"><strong>TRD evidence</strong><span>RPD-41418 support, ledgers, payroll, AP, post, QPF, SLO, NRCE, and uplift proof stay attached to each line.</span></div>
+          <div class="gate-chip"><strong>CPA threshold</strong><span>TRD says requested credits above $5M require audit results from a New Mexico-licensed CPA.</span></div>
+          <div class="gate-chip"><strong>No unsupported fee</strong><span>No success fee on speculative upside. Fee applies only to agreed, verified savings or recovered/protected value.</span></div>
         </div>
       </section>
 
@@ -1102,7 +1181,7 @@
           <a href="https://nmfilm.location.pro/list-property">NM Location Pro</a>
           <a href="https://www.ownwell.com/bills">Ownwell bill-reduction model</a>
         </div>
-        <p class="tiny">Prototype note: this is a product design and demonstration model, not tax, legal, or accounting advice. Ownwell is referenced only as a business-model and user-experience inspiration; New Mexico credit claims should be controlled by NMFO, TRD, forms, and applicable law.</p>
+        <p class="tiny">Prototype note: this is a product design and demonstration model, not tax, legal, or accounting advice. The 6% fee is a business-model assumption inspired by success-fee savings products; Ownwell is referenced only as user-experience inspiration. New Mexico credit claims should be controlled by NMFO, TRD, RPD-41418, state websites, forms, and applicable law.</p>
       </section>
     </div>
   </main>
@@ -1140,7 +1219,7 @@
       document.querySelector("#predictedCredit").textContent = money(credit);
       document.querySelector("#effectiveRate").textContent = `${Math.round(rate * 100)}% modeled scenario`;
       document.querySelector("#missedCredit").textContent = money(Math.max(0, missed));
-      document.querySelector("#successFee").textContent = money(credit * 0.02);
+      document.querySelector("#successFee").textContent = money(credit * 0.06);
       document.querySelector("#remoteBar").style.width = mode === "remote" || mode === "max" ? "25%" : "0";
       document.querySelector("#qpfBar").style.width = mode === "qpf" || mode === "max" ? "12.5%" : "0";
     }
