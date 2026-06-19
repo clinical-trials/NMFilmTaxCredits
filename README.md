@@ -2,10 +2,16 @@
 
 Prototype website explorations for an evidence-based New Mexico film tax credit compliance and optimization product.
 
+## GitHub Pages structure
+
+- `index.html` — current public website version.
+- `assets/` — shared website assets.
+- `versions/` — stable saved website versions.
+- `VERSION_LOG.md` — version notes and evidence-tracking notes.
+
 ## Current saved versions
 
-- `outputs/versions/v001-first-dashboard/index.html` — original dashboard baseline.
-- `outputs/versions/v002-digital-adobe/index.html` — digital adobe direction with the Credit Snapshot as the anchor.
+- `versions/v001-first-dashboard/index.html` — original dashboard baseline.
+- `versions/v002-digital-adobe/index.html` — digital adobe direction with the Credit Snapshot as the anchor.
 
-The version log is in `outputs/VERSION_LOG.md`.
-
+The older `outputs/` folder remains as a working/export archive, but GitHub Pages should be configured to publish from the repository root.

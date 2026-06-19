@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NM CreditOps AI - v002 Digital Adobe</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18241f;
+      --muted: #66736c;
+      --line: #d9cfbd;
+      --paper: #fffaf0;
+      --panel: #ffffff;
+      --green: #12684f;
+      --sage: #71947d;
+      --gold: #f3c763;
+      --clay: #bf7048;
+      --bad: #9c2c25;
+      --warn: #a65012;
+      --good: #12784e;
+      --shadow: 0 14px 34px rgba(25, 39, 32, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(rgba(18, 104, 79, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(18, 104, 79, .045) 1px, transparent 1px),
+        linear-gradient(180deg, #fbf8ef, #edf4ef);
+      background-size: 24px 24px, 24px 24px, auto;
+    }
+
+    button, input, select { font: inherit; }
+    figure { margin: 0; }
+    a { color: var(--green); }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 250, 240, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    header .shell {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--green);
+      color: #fff;
+      font-weight: 900;
+      box-shadow: 4px 4px 0 rgba(24, 36, 31, .1);
+    }
+
+    .brand strong { display: block; font-size: 16px; }
+    .brand span span { display: block; color: var(--muted); font-size: 12px; }
+
+    nav {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 9px 10px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    nav a:hover { background: #e7f1eb; color: var(--green); }
+
+    .hero {
+      padding: 34px 0 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .hero-copy, .credit-card, .panel, .mini-card, .faq-item {
+      background: rgba(255,255,255,.84);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      min-height: 450px;
+      padding: 26px;
+      display: grid;
+      align-content: center;
+      background:
+        linear-gradient(90deg, rgba(191, 112, 72, .07) 1px, transparent 1px),
+        linear-gradient(rgba(18, 104, 79, .055) 1px, transparent 1px),
+        linear-gradient(135deg, #ffffff, #f3f9f5);
+      background-size: 24px 24px, 24px 24px, auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--green);
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      max-width: 800px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.52;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 7px;
+      padding: 11px 14px;
+      cursor: pointer;
+      font-weight: 850;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+    }
+
+    .btn.primary { background: var(--green); color: #fff; border-color: var(--green); }
+
+    .role-grid, .visual-band, .three, .controls, .model, .source-row {
+      display: grid;
+      gap: 10px;
+    }
+
+    .role-grid {
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 22px;
+    }
+
+    .role {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 13px;
+      background: rgba(255,255,255,.78);
+    }
+
+    .role strong { display: block; margin-bottom: 5px; font-size: 14px; }
+    .role span { color: var(--muted); font-size: 13px; line-height: 1.38; }
+
+    .visual-band {
+      grid-template-columns: 1.2fr .8fr;
+      margin-top: 18px;
+    }
+
+    .image-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #dfe7e2;
+      min-height: 160px;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 16 / 9;
+    }
+
+    .image-caption {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #fff;
+      background: rgba(15, 34, 27, .76);
+      backdrop-filter: blur(8px);
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    .credit-card {
+      padding: 18px;
+      min-height: 450px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    h2, h3 { margin: 0; letter-spacing: 0; }
+    h2 { font-size: 23px; }
+    h3 { font-size: 18px; }
+
+    .pill {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 6px 9px;
+      background: #e7f1eb;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .big-number {
+      display: grid;
+      gap: 5px;
+      padding: 18px;
+      border-radius: 8px;
+      background: #122820;
+      color: #fff;
+    }
+
+    .big-number span { color: #cfe4db; font-size: 13px; font-weight: 750; }
+    .big-number strong { font-size: 42px; line-height: 1; }
+
+    .controls {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 10px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .meter { display: grid; gap: 8px; }
+    .meter-row {
+      display: grid;
+      grid-template-columns: 88px 1fr 52px;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .track {
+      height: 10px;
+      border-radius: 999px;
+      background: #e7eee9;
+      overflow: hidden;
+    }
+
+    .track span {
+      display: block;
+      height: 100%;
+      background: var(--green);
+      border-radius: inherit;
+    }
+
+    .credit-notes {
+      display: grid;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffaf0;
+      padding: 12px;
+    }
+
+    .credit-note {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 10px;
+      align-items: start;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.38;
+    }
+
+    .credit-note b {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .three, .model { grid-template-columns: repeat(3, 1fr); }
+
+    .mini-card {
+      box-shadow: none;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .mini-card p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .sections {
+      display: grid;
+      gap: 18px;
+      padding: 18px 0 42px;
+    }
+
+    .panel { padding: 20px; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .section-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+      max-width: 760px;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 9px;
+    }
+
+    .step {
+      background: #f6f9f6;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 126px;
+    }
+
+    .step b {
+      width: 26px;
+      height: 26px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--green);
+      color: #fff;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .step strong { display: block; margin-bottom: 4px; }
+    .step span { display: block; color: var(--muted); font-size: 13px; line-height: 1.35; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px 9px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      font-size: 11px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #e7f1eb;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .tag.warn { color: var(--warn); background: #fff4df; }
+    .tag.bad { color: var(--bad); background: #faecea; }
+
+    .community {
+      background: linear-gradient(135deg, rgba(18, 104, 79, .95), rgba(21, 130, 95, .9)), #12684f;
+      color: #fff;
+    }
+
+    .community .section-head p,
+    .community .mini-card p { color: #dcefe7; }
+
+    .community .mini-card {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.22);
+      color: #fff;
+    }
+
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .faq-menu {
+      display: grid;
+      gap: 8px;
+      position: sticky;
+      top: 84px;
+    }
+
+    .faq-menu a, .faq-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      box-shadow: none;
+    }
+
+    .faq-menu a {
+      padding: 12px;
+      font-weight: 850;
+      display: block;
+    }
+
+    .faq-menu small {
+      display: block;
+      color: var(--muted);
+      font-weight: 650;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    .faq-stack { display: grid; gap: 10px; }
+    .faq-item { padding: 15px; }
+
+    details {
+      margin-top: 12px;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--green);
+    }
+
+    details p {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+
+    .source-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .source-row a {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 7px 10px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .tiny {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 980px) {
+      header .shell { align-items: flex-start; flex-direction: column; padding: 12px 0; }
+      nav { justify-content: flex-start; }
+      .hero-grid, .three, .workflow, .faq-layout, .controls, .role-grid, .visual-band {
+        grid-template-columns: 1fr;
+      }
+      .hero-copy, .credit-card { min-height: auto; }
+      .faq-menu { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell">
+      <a class="brand" href="#top" aria-label="NM CreditOps AI home">
+        <span class="mark">NM</span>
+        <span><strong>CreditOps AI</strong><span>v002-digital-adobe</span></span>
+      </a>
+      <nav aria-label="Page sections">
+        <a href="#how">How it works</a>
+        <a href="#spend">Spend review</a>
+        <a href="#locations">Locations</a>
+        <a href="#faq">Friendly FAQ</a>
+        <a href="#sources">Sources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">AI compliance + optimization for New Mexico productions</span>
+          <h1>Maximize the credit. Make the rules readable.</h1>
+          <p class="lead">A warmer digital-adobe version of the dashboard idea: keep the Credit Snapshot, make the workflow easier to read, and ground every tax-credit claim in New Mexico Film Office and TRD evidence.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#faq">Read the quick FAQ</a>
+            <a class="btn" href="#spend">Try the credit model</a>
+            <a class="btn" href="https://nmfilm.location.pro/list-property">List Your Property for Filming</a>
+          </div>
+          <div class="role-grid" aria-label="Audience paths">
+            <div class="role"><strong>For producers</strong><span>See credit potential and risk before decisions harden.</span></div>
+            <div class="role"><strong>For budget offices</strong><span>Turn invoices, payroll, and ledgers into reviewable evidence.</span></div>
+            <div class="role"><strong>For New Mexicans</strong><span>List properties and choose direct contact or Film Office routing for inquiries.</span></div>
+          </div>
+          <div class="visual-band" aria-label="New Mexico film economy visuals">
+            <figure class="image-card">
+              <img src="assets/nm-film-production-hero.png" alt="Film crew working at a New Mexico desert location with production monitor and mesa landscape">
+            </figure>
+            <figure class="image-card">
+              <img src="assets/nm-location-listing.png" alt="New Mexico property owner and location scout reviewing an adobe property for filming">
+            </figure>
+          </div>
+        </div>
+
+        <aside class="credit-card" aria-label="Credit estimator">
+          <figure class="image-card">
+            <img src="assets/nm-film-production-hero.png" alt="Film crew working at a New Mexico desert location with production monitor and mesa landscape">
+            <figcaption class="image-caption">Built for real productions moving fast across New Mexico locations.</figcaption>
+          </figure>
+          <div class="card-head">
+            <h2>Credit Snapshot</h2>
+            <span class="pill">Core keeper</span>
+          </div>
+          <div class="big-number">
+            <span>Predicted reimbursement</span>
+            <strong id="predictedCredit">$0</strong>
+            <span id="effectiveRate">Effective rate pending</span>
+          </div>
+          <div class="controls">
+            <label>NM qualified spend
+              <input id="qualifiedInput" type="number" value="10000000" min="0" step="50000">
+            </label>
+            <label>Incentive scenario
+              <select id="stackMode">
+                <option value="base">25% base</option>
+                <option value="qpf">Base + QPF</option>
+                <option value="remote">Base + certain-area</option>
+                <option value="max" selected>Certain-area + QPF eligible</option>
+              </select>
+            </label>
+          </div>
+          <div class="meter" aria-label="Incentive stack visualization">
+            <div class="meter-row"><span>Base</span><div class="track"><span style="width:62.5%"></span></div><b>25%</b></div>
+            <div class="meter-row"><span>Certain-area</span><div class="track"><span id="remoteBar" style="width:25%"></span></div><b>+10</b></div>
+            <div class="meter-row"><span>QPF/pilot</span><div class="track"><span id="qpfBar" style="width:12.5%"></span></div><b>+5</b></div>
+            <div class="meter-row"><span>Modeled top</span><div class="track"><span style="width:100%; background:var(--gold)"></span></div><b>40%</b></div>
+          </div>
+          <div class="credit-notes">
+            <div class="credit-note"><b>25%</b><span>Base credit on eligible direct production and postproduction expenditures made in New Mexico.</span></div>
+            <div class="credit-note"><b>+10%</b><span>Additional credit for eligible direct or postproduction expenditures made in certain areas of the state.</span></div>
+            <div class="credit-note"><b>+5%</b><span>Additional credit may apply for QPF spend or TV pilot/series spend, but RPD-41418 states QPF and TV pilot/series 5% credits are not both allowed on the same claim bucket.</span></div>
+            <div class="credit-note"><b>15% / 20%</b><span>NRCE has its own 15% line; federal New Markets Tax Credit overlap is limited to 20% and cannot also take additional credit.</span></div>
+          </div>
+          <div class="three">
+            <div class="mini-card"><h3 id="missedCredit">$0</h3><p>Potential upside flagged for review.</p></div>
+            <div class="mini-card"><h3 id="successFee">$0</h3><p>Success fee at 2% of modeled recovery.</p></div>
+            <div class="mini-card"><h3 id="docsReady">70%</h3><p>Documentation readiness.</p></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="shell sections">
+      <section class="panel" id="how">
+        <div class="section-head">
+          <div>
+            <h2>How the tool makes complexity feel manageable</h2>
+            <p>The operational flow stays simple. The expertise lives inside the rule checks, evidence prompts, and source-backed explanations.</p>
+          </div>
+          <span class="pill">Five-step workflow</span>
+        </div>
+        <div class="workflow">
+          <div class="step"><b>1</b><strong>Qualify</strong><span>Confirm entity, project type, funding, and registration readiness.</span></div>
+          <div class="step"><b>2</b><strong>Classify</strong><span>Sort payroll, vendor, fringe, post, QPF, certain-area, NRCE, and SLO lines.</span></div>
+          <div class="step"><b>3</b><strong>Optimize</strong><span>Plan eligible spend into base, certain-area, QPF or TV, NRCE, post, and NMTC buckets.</span></div>
+          <div class="step"><b>4</b><strong>Document</strong><span>Build the RPD-41418 evidence package: ledgers, approvals, payroll, SLO, NRCE, post, and uplift support.</span></div>
+          <div class="step"><b>5</b><strong>Submit</strong><span>Track the one-year filing window and the 120-day TRD determination period for complete applications.</span></div>
+        </div>
+      </section>
+
+      <section class="panel" id="spend">
+        <div class="section-head">
+          <div>
+            <h2>Spend review that reads like a conversation</h2>
+            <p>Budget teams get the table they need, while producers see clear labels: clean, review, or at risk.</p>
+          </div>
+          <button class="btn" id="addSpend">Add sample invoice</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Spend line</th>
+              <th>Plain-English reason</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="spendRows"></tbody>
+        </table>
+      </section>
+
+      <section class="panel community" id="locations">
+        <div class="section-head">
+          <div>
+            <h2>Invite New Mexicans into the film economy</h2>
+            <p>Residents and businesses can list homes, storefronts, ranches, offices, land, and unusual interiors as filming locations. Listings can allow direct production contact or route inquiries through the Film Office, and owners should prepare at least 10 photos before submitting.</p>
+          </div>
+          <a class="btn" href="https://nmfilm.location.pro/list-property">List Your Property for Filming</a>
+        </div>
+        <div class="three">
+          <div class="mini-card"><h3>List Your Property for Filming</h3><p>Prepare the minimum required 10 photos, plus access notes, parking, power, sound concerns, holding areas, owner availability, and preferred contact routing.</p></div>
+          <div class="mini-card"><h3>Match</h3><p>Help productions find authentic New Mexico looks instead of defaulting to the obvious choices.</p></div>
+          <div class="mini-card"><h3>Earn</h3><p>Make the state incentive visible as local income for property owners, businesses, and communities.</p></div>
+        </div>
+      </section>
+
+      <section class="panel" id="faq">
+        <div class="section-head">
+          <div>
+            <h2>FAQ designed for humans first</h2>
+            <p>Quick takeaways first, deeper details after expansion. The goal is fast buy-in with citations still available for budget offices.</p>
+          </div>
+          <span class="pill">Scan first, expand later</span>
+        </div>
+        <div class="faq-layout">
+          <div class="faq-menu" aria-label="FAQ shortcuts">
+            <a href="#q1">What does it do?<small>One-sentence product explanation</small></a>
+            <a href="#q2">Where is the money?<small>RPD-41418 credit buckets</small></a>
+            <a href="#q3">What gets flagged?<small>Missed credit and audit risk</small></a>
+            <a href="#q4">Why locations?<small>Local income and scouting value</small></a>
+          </div>
+          <div class="faq-stack">
+            <article class="faq-item" id="q1">
+              <h3>It is a credit co-pilot for New Mexico productions.</h3>
+              <p>It reads spend, explains eligibility in plain language, predicts reimbursement, and builds the documentation trail while the production is still moving.</p>
+              <details><summary>Show budget-office detail</summary><p>The system should classify direct production and postproduction spend, NM vendor status, resident labor, NRCE lines, SLO/direct hire talent, QPF activity, certain-area uplift spend, postproduction services performed in New Mexico, and documentation status against NMFO/TRD source material.</p></details>
+            </article>
+            <article class="faq-item" id="q2">
+              <h3>The value comes from putting spend into the right official buckets.</h3>
+              <p>RPD-41418 starts with 25% lines for eligible direct production and postproduction expenditures, then separately asks for eligible 5%, 10%, 15%, and 20% categories.</p>
+              <details><summary>Show deeper incentive logic</summary><p>The form includes a 5% line for TV pilots/series, a 5% line for qualified production facilities, a 10% line for certain areas of the state, a 15% line for qualifying nonresident industry crew, and a 20% line for expenditures tied to a federal New Markets Tax Credit. The QPF and TV pilot/series 5% credits are alternatives, not additive to each other for the same bucket.</p></details>
+            </article>
+            <article class="faq-item" id="q3">
+              <h3>It flags problems when they are still fixable.</h3>
+              <p>Examples: missing QPF support, certain-area mileage/location backup, nonresident BTL outreach proof, SLO workflow gaps, and post-production spend that may not qualify.</p>
+              <details><summary>Show example evidence prompts</summary><p>For a flagged line, the product should ask for RPD-41418 support such as account ledgers in Excel, Film Office approval memo, NM Film Office NRCE approval, CPA report if required, SLO/direct hire talent support, postproduction support, and uplift support for QPF, TV pilots/series, or certain-area/rural claims.</p></details>
+            </article>
+            <article class="faq-item" id="q4">
+              <h3>Locations make the product feel good for the whole state.</h3>
+              <p>When residents and businesses list film-ready properties, the incentive story becomes local income, not just a tax-credit spreadsheet.</p>
+              <details><summary>Show location-marketplace detail</summary><p>Listings should gather practical production details: photos, access, parking, power, noise, nearby support spaces, owner restrictions, availability, insurance expectations, and whether the space helps production document local spend.</p></details>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="sources">
+        <div class="section-head">
+          <div>
+            <h2>Source library</h2>
+            <p>Keep citations visible but calm. This builds trust without forcing every reader into legal detail immediately.</p>
+          </div>
+          <span class="pill">v002-digital-adobe</span>
+        </div>
+        <div class="source-row">
+          <a href="https://www.tax.newmexico.gov/tax-professionals/tax-credits-overview-forms/film-production-tax-credit/">NM TRD Film Production Tax Credit</a>
+          <a href="https://klvg4oyd4j.execute-api.us-west-2.amazonaws.com/prod/PublicFiles/34821a9573ca43e7b06dfad20f5183fd/6635da39-a354-49f1-a4be-c5cda9e4371c/rpd-41418.pdf">RPD-41418 Application PDF</a>
+          <a href="https://nmfilm.com/incentives/after-wrap">NMFO After Wrap</a>
+          <a href="https://nmfilm.com/locations/qualified-production-facilities">NMFO QPF</a>
+          <a href="https://nmfilm.com/incentives/nonresident-below-the-line-crew-credit-nrce">NMFO NRCE</a>
+          <a href="https://film.ca.gov/tax-credit/the-basics-4-0/">California Program 4.0</a>
+          <a href="https://nmfilm.location.pro/list-property">NM Location Pro</a>
+        </div>
+        <p class="tiny">Prototype note: this is a product design and demonstration model, not tax, legal, or accounting advice.</p>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const spend = [
+      { name: "Qualified production facility days", reason: "Likely QPF uplift candidate, but day counts need facility-only support.", amount: 1200000, status: "Review", tone: "warn" },
+      { name: "Resident BTL payroll", reason: "Clean local labor bucket if residency and payroll coding reconcile.", amount: 840000, status: "Clean", tone: "good" },
+      { name: "Nonresident BTL specialty crew", reason: "Potential NRCE path; outreach and eligibility support required.", amount: 320000, status: "Review", tone: "warn" },
+      { name: "Santa Fe hotel block", reason: "Local vendor spend; confirm vendor records and tax treatment.", amount: 210000, status: "Clean", tone: "good" },
+      { name: "Out-of-state VFX vendor", reason: "May leak out of qualified New Mexico spend without better support.", amount: 480000, status: "At risk", tone: "bad" },
+      { name: "Certain-area standing set build", reason: "Possible additional 10% if mileage and spend location meet statutory requirements and Film Office approval.", amount: 760000, status: "Review", tone: "warn" },
+      { name: "Nonresident performer loan-out", reason: "Separate SLO workflow from nonresident BTL crew logic.", amount: 950000, status: "Review", tone: "warn" }
+    ];
+
+    const money = value => value.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0
+    });
+
+    function scenarioRate(mode) {
+      if (mode === "qpf") return 0.30;
+      if (mode === "remote") return 0.35;
+      if (mode === "max") return 0.40;
+      return 0.25;
+    }
+
+    function renderEstimator() {
+      const spendValue = Number(document.querySelector("#qualifiedInput").value || 0);
+      const mode = document.querySelector("#stackMode").value;
+      const rate = scenarioRate(mode);
+      const credit = spendValue * rate;
+      const missed = mode === "max" ? spendValue * 0.03 : spendValue * (0.40 - rate) * 0.4;
+      document.querySelector("#predictedCredit").textContent = money(credit);
+      document.querySelector("#effectiveRate").textContent = `${Math.round(rate * 100)}% modeled scenario`;
+      document.querySelector("#missedCredit").textContent = money(Math.max(0, missed));
+      document.querySelector("#successFee").textContent = money(credit * 0.02);
+      document.querySelector("#remoteBar").style.width = mode === "remote" || mode === "max" ? "25%" : "0";
+      document.querySelector("#qpfBar").style.width = mode === "qpf" || mode === "max" ? "12.5%" : "0";
+    }
+
+    function renderSpend() {
+      const rows = document.querySelector("#spendRows");
+      rows.innerHTML = "";
+      spend.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><strong>${item.name}</strong></td>
+          <td>${item.reason}</td>
+          <td>${money(item.amount)}</td>
+          <td><span class="tag ${item.tone === "warn" ? "warn" : item.tone === "bad" ? "bad" : ""}">${item.status}</span></td>
+        `;
+        rows.appendChild(row);
+      });
+    }
+
+    document.querySelector("#qualifiedInput").addEventListener("input", renderEstimator);
+    document.querySelector("#stackMode").addEventListener("input", renderEstimator);
+    document.querySelector("#addSpend").addEventListener("click", () => {
+      spend.push({
+        name: "New Mexico catering vendor",
+        reason: "New local vendor line added; verify invoice, vendor address, and payment trail.",
+        amount: 68000,
+        status: "Clean",
+        tone: "good"
+      });
+      renderSpend();
+    });
+
+    renderEstimator();
+    renderSpend();
+  </script>
+</body>
+</html>
