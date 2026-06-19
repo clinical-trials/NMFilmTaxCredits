@@ -18,3 +18,11 @@
 - Update: Property-listing copy now says owners can choose direct production contact or route inquiries through the Film Office.
 - Update: Property-listing copy now states the minimum required 10 photos.
 - Update: Credit Snapshot and FAQ copy revised to align with TRD Form RPD-41418 buckets: 25% base direct/postproduction, 5% TV pilot/series, 5% QPF, 10% certain-area, 15% NRCE, and 20% federal New Markets Tax Credit overlap limitation.
+
+## v003-graphic-infoviz
+
+- Date: 2026-06-18
+- File: `versions/v003-graphic-infoviz/index.html`
+- Status: Current public homepage
+- Description: Front-end refinement of v002 focused on reducing text heaviness and increasing information visualization. Adds visual signal tiles, official RPD-41418 bucket map, evidence rail, and spend-review status strip while preserving the Credit Snapshot as the anchor.
+- Evidence note: No new tax-credit claims were added beyond the RPD-41418 bucket structure already documented in v002.

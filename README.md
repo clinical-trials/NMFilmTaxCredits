@@ -13,5 +13,6 @@ Prototype website explorations for an evidence-based New Mexico film tax credit 
 
 - `versions/v001-first-dashboard/index.html` — original dashboard baseline.
 - `versions/v002-digital-adobe/index.html` — digital adobe direction with the Credit Snapshot as the anchor.
+- `versions/v003-graphic-infoviz/index.html` — current front-end refinement with more information visualization.
 
 The older `outputs/` folder remains as a working/export archive, but GitHub Pages should be configured to publish from the repository root.
