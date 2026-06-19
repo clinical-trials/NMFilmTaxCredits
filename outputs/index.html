@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NM CreditOps AI</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17201b;
+      --muted: #65706a;
+      --line: #dfe6e1;
+      --soft: #f5f7f2;
+      --panel: #ffffff;
+      --accent: #0f6b4f;
+      --accent-2: #a34f17;
+      --warn: #a65012;
+      --bad: #9c2c25;
+      --good: #12784e;
+      --shadow: 0 12px 30px rgba(24, 38, 30, .09);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: #eef2ec;
+    }
+
+    button, input, select { font: inherit; }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+    }
+
+    aside {
+      background: #13231c;
+      color: #f8fbf7;
+      padding: 22px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: #f0b35a;
+      color: #14231d;
+      font-weight: 900;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 17px;
+    }
+
+    .brand span {
+      display: block;
+      color: #b8c8bf;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    nav {
+      display: grid;
+      gap: 6px;
+    }
+
+    nav a {
+      color: #dfe9e4;
+      text-decoration: none;
+      padding: 10px 11px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    nav a.active, nav a:hover {
+      background: rgba(255,255,255,.1);
+      color: #fff;
+    }
+
+    .side-card {
+      margin-top: 28px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      font-size: 13px;
+      color: #d2ddd7;
+      line-height: 1.45;
+    }
+
+    .side-card strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    main {
+      padding: 22px;
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin-top: 5px;
+      max-width: 780px;
+      line-height: 1.45;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 7px;
+      padding: 10px 13px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .metrics {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      padding: 16px;
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 700;
+    }
+
+    .metric .value {
+      display: block;
+      margin-top: 8px;
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .metric .hint {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .main-grid {
+      grid-template-columns: minmax(0, 1.4fr) minmax(330px, .8fr);
+      margin-top: 14px;
+      align-items: start;
+    }
+
+    .section {
+      padding: 16px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 5px 9px;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 10px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 7px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--soft);
+      color: var(--muted);
+    }
+
+    .tag.good { color: var(--good); background: #e8f5ee; }
+    .tag.warn { color: var(--warn); background: #fff1df; }
+    .tag.bad { color: var(--bad); background: #fdebe9; }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .flag {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 5px;
+      background: var(--warn);
+    }
+
+    .dot.bad { background: var(--bad); }
+    .dot.good { background: var(--good); }
+
+    .flag strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .flag p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.4;
+      font-size: 13px;
+    }
+
+    .two {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 14px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .check {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .check input {
+      width: auto;
+      margin-top: 2px;
+    }
+
+    .model {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .model .box {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .box strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .box span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .faq {
+      margin-top: 14px;
+    }
+
+    details {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 9px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    details p {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+
+    a { color: var(--accent); }
+
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1050px) {
+      .app { grid-template-columns: 1fr; }
+      aside {
+        height: auto;
+        position: static;
+      }
+      nav {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .metrics, .main-grid, .two, .controls, .model {
+        grid-template-columns: 1fr;
+      }
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .actions {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <div class="mark">NM</div>
+        <div>
+          <strong>CreditOps AI</strong>
+          <span>Film incentive command center</span>
+        </div>
+      </div>
+      <nav aria-label="Product sections">
+        <a class="active" href="#dashboard">Dashboard <span>01</span></a>
+        <a href="#spend">Spend Tracker <span>02</span></a>
+        <a href="#flags">Opportunity Flags <span>03</span></a>
+        <a href="#docs">Docs Builder <span>04</span></a>
+        <a href="#slo">SLO Desk <span>05</span></a>
+        <a href="#faq">Cited FAQ <span>06</span></a>
+      </nav>
+      <div class="side-card">
+        <strong>Official escalation</strong>
+        New Mexico Film Office<br>
+        Steve Graham, Director<br>
+        505.476.5600<br>
+        steve.graham@edd.nm.gov<br>
+        info@nmfilm.com
+      </div>
+      <div class="side-card">
+        <strong>Positioning</strong>
+        Software for production finance teams that need a defensible New Mexico credit estimate before cash flow turns painful.
+      </div>
+      <div class="side-card">
+        <strong>Version</strong>
+        v001-first-dashboard<br>
+        Baseline visualization
+      </div>
+    </aside>
+
+    <main>
+      <section class="topbar" id="dashboard">
+        <div>
+          <h1>New Mexico film credit compliance and optimization</h1>
+          <div class="sub">Parse invoices, classify qualified spend, surface missed uplifts, forecast reimbursement, and assemble the wrap-to-application documentation package.</div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="addSpend">Add sample invoice</button>
+          <button class="btn primary" id="optimize">Run optimization</button>
+        </div>
+      </section>
+
+      <section class="grid metrics" aria-label="Credit summary">
+        <div class="card metric">
+          <span class="label">NM qualified spend</span>
+          <span class="value" id="qualifiedSpend">$0</span>
+          <span class="hint">Direct spend tagged to NM categories</span>
+        </div>
+        <div class="card metric">
+          <span class="label">Predicted credit</span>
+          <span class="value" id="predictedCredit">$0</span>
+          <span class="hint" id="effectiveRate">Effective rate pending</span>
+        </div>
+        <div class="card metric">
+          <span class="label">Missed opportunity</span>
+          <span class="value" id="missedCredit">$0</span>
+          <span class="hint">Estimated recoverable upside</span>
+        </div>
+        <div class="card metric">
+          <span class="label">Docs readiness</span>
+          <span class="value" id="readiness">0%</span>
+          <span class="hint">Wrap packet and tax application</span>
+        </div>
+      </section>
+
+      <section class="grid main-grid">
+        <div class="card section" id="spend">
+          <div class="section-head">
+            <h2>Spend Tracker</h2>
+            <span class="pill">AI classification preview</span>
+          </div>
+          <div class="controls">
+            <label>Production budget
+              <input id="budget" type="number" value="10000000" min="0" step="50000">
+            </label>
+            <label>Base NM credit rate
+              <select id="baseRate">
+                <option value="0.25">25%</option>
+                <option value="0.30">30%</option>
+                <option value="0.35">35%</option>
+              </select>
+            </label>
+            <label>Success fee
+              <select id="feeRate">
+                <option value="0.01">1%</option>
+                <option value="0.02" selected>2%</option>
+                <option value="0.03">3%</option>
+              </select>
+            </label>
+            <label>Retainer
+              <input id="retainer" type="number" value="15000" min="0" step="1000">
+            </label>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Vendor / Payee</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Credit treatment</th>
+                <th>Risk</th>
+              </tr>
+            </thead>
+            <tbody id="spendRows"></tbody>
+          </table>
+        </div>
+
+        <div class="stack">
+          <div class="card section" id="flags">
+            <div class="section-head">
+              <h2>Missed Credit Flags</h2>
+              <span class="pill" id="flagCount">0 open</span>
+            </div>
+            <div class="stack" id="flagsList"></div>
+          </div>
+
+          <div class="card section">
+            <div class="section-head">
+              <h2>Revenue Model</h2>
+              <span class="pill">Per production</span>
+            </div>
+            <div class="model">
+              <div class="box">
+                <strong id="successFee">$0</strong>
+                <span>Success fee</span>
+              </div>
+              <div class="box">
+                <strong id="totalFee">$0</strong>
+                <span>Retainer + success</span>
+              </div>
+              <div class="box">
+                <strong id="annualRev">$0</strong>
+                <span>50 productions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="card section" id="docs">
+          <div class="section-head">
+            <h2>Documentation Builder</h2>
+            <span class="pill">Wrap to application</span>
+          </div>
+          <div class="checklist" id="docList"></div>
+        </div>
+
+        <div class="card section" id="slo">
+          <div class="section-head">
+            <h2>SLO Desk</h2>
+            <span class="pill">Nonresident performers</span>
+          </div>
+          <div class="checklist">
+            <label class="check"><input type="checkbox" checked> Capture performer residency and loan-out entity information at offer stage.</label>
+            <label class="check"><input type="checkbox"> Confirm Super Loan Out process with NMFO before payroll lock.</label>
+            <label class="check"><input type="checkbox"> Match cast, loan-out, withholding, and production entity names across all ledgers.</label>
+            <label class="check"><input type="checkbox"> Flag nonresident performer payments separately from NRCE below-the-line crew wages.</label>
+          </div>
+          <p class="small">This desk is intentionally separate from NRCE because nonresident performers and nonresident BTL crew require different review paths.</p>
+        </div>
+      </section>
+
+      <section class="card section faq" id="faq">
+        <div class="section-head">
+          <h2>Cited FAQ For Budget Offices</h2>
+          <span class="pill">Source-backed copy blocks</span>
+        </div>
+
+        <details open>
+          <summary>What is this product optimizing?</summary>
+          <p>It optimizes New Mexico-qualified production and post-production spend, predicted refundable credit recovery, uplift opportunities, audit readiness, and submission timing. New Mexico TRD describes the credit as applying to film production companies with direct production and direct post-production expenditures subject to New Mexico taxation.</p>
+        </details>
+        <details>
+          <summary>Where do QPF uplifts fit?</summary>
+          <p>NMFO states an additional 5% credit may be available for qualifying use of qualified production facilities, and that the uplift applies only to production time at the facility, not offices attached to the QPF. Source: <a href="https://nmfilm.com/locations/qualified-production-facilities">NMFO Qualified Production Facilities</a>.</p>
+        </details>
+        <details>
+          <summary>How does NRCE differ from SLO?</summary>
+          <p>NRCE concerns eligible nonresident below-the-line crew wages. The SLO desk handles nonresident performer and loan-out workflow separately so cast/talent treatment is not mixed into BTL crew calculations. Source: <a href="https://nmfilm.com/incentives/nonresident-below-the-line-crew-credit-nrce">NMFO NRCE</a>.</p>
+        </details>
+        <details>
+          <summary>What is the wrap documentation clock?</summary>
+          <p>NMFO lists a 60-day window after the last eligible New Mexico expenditure for completion notice, final vendor list, final crew list, and stats form, plus a one-year window for the tax credit application package. Source: <a href="https://nmfilm.com/incentives/after-wrap">NMFO After Wrap</a>.</p>
+        </details>
+        <details>
+          <summary>How is this different from California?</summary>
+          <p>California Program 4.0 is an allocation-window program with jobs-ratio ranking and fiscal-year funding categories. This tool is deliberately hyper-local to New Mexico spend categories, residency rules, vendor qualification, QPF/rural uplift strategy, and NMFO/TRD documentation. Source: <a href="https://film.ca.gov/tax-credit/the-basics-4-0/">California Film Commission Program 4.0 Basics</a>.</p>
+        </details>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const spend = [
+      { vendor: "Netflix Studios Albuquerque", category: "Qualified production facility", amount: 1200000, treatment: "QPF uplift candidate", risk: "good" },
+      { vendor: "Local grip and electric crew", category: "Resident BTL payroll", amount: 840000, treatment: "Qualified labor", risk: "good" },
+      { vendor: "Out-of-state key specialty techs", category: "Nonresident BTL crew", amount: 320000, treatment: "NRCE review", risk: "warn" },
+      { vendor: "Santa Fe hotel block", category: "Local vendor", amount: 210000, treatment: "Vendor verification", risk: "good" },
+      { vendor: "Los Angeles VFX vendor", category: "Post-production", amount: 480000, treatment: "May be nonqualified", risk: "bad" },
+      { vendor: "Rural standing set build", category: "Uplift zone spend", amount: 760000, treatment: "Rural uplift candidate", risk: "warn" },
+      { vendor: "Nonresident lead performer loan-out", category: "Performer SLO", amount: 950000, treatment: "SLO process required", risk: "warn" }
+    ];
+
+    const docs = [
+      "Project registered with NMFO after funding and greenlight confirmation",
+      "Final vendor list exported in Excel format",
+      "Final crew list exported in Excel format",
+      "Completion of project notice prepared within 60-day clock",
+      "Stats form prepared for NMFO",
+      "Account ledger ties to payroll, AP, petty cash, NRCE, SLO, QPF, rural uplift, and post",
+      "End credit screenshot and five promotional photos gathered",
+      "CPA audit scoped if requested credit exceeds $5,000,000"
+    ];
+
+    const money = value => value.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0
+    });
+
+    function treatmentRate(item, baseRate) {
+      if (item.category === "Qualified production facility") return Math.min(baseRate + 0.05, 0.35);
+      if (item.category === "Uplift zone spend") return Math.min(baseRate + 0.05, 0.35);
+      if (item.category === "Nonresident BTL crew") return 0.15;
+      if (item.category === "Post-production" && item.risk === "bad") return 0;
+      if (item.category === "Performer SLO") return baseRate * 0.55;
+      return baseRate;
+    }
+
+    function render() {
+      const baseRate = Number(document.querySelector("#baseRate").value);
+      const feeRate = Number(document.querySelector("#feeRate").value);
+      const retainer = Number(document.querySelector("#retainer").value);
+      const rows = document.querySelector("#spendRows");
+      rows.innerHTML = "";
+
+      let qualified = 0;
+      let credit = 0;
+      let missed = 0;
+
+      spend.forEach(item => {
+        const rate = treatmentRate(item, baseRate);
+        const itemCredit = item.amount * rate;
+        if (rate > 0) qualified += item.amount;
+        credit += itemCredit;
+        if (item.risk === "warn") missed += item.amount * 0.04;
+        if (item.risk === "bad") missed += item.amount * baseRate;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${item.vendor}</td>
+          <td>${item.category}</td>
+          <td>${money(item.amount)}</td>
+          <td>${item.treatment}</td>
+          <td><span class="tag ${item.risk}">${item.risk === "good" ? "Clean" : item.risk === "warn" ? "Review" : "At risk"}</span></td>
+        `;
+        rows.appendChild(tr);
+      });
+
+      const effective = qualified ? credit / qualified : 0;
+      const success = credit * feeRate;
+      document.querySelector("#qualifiedSpend").textContent = money(qualified);
+      document.querySelector("#predictedCredit").textContent = money(credit);
+      document.querySelector("#effectiveRate").textContent = `${Math.round(effective * 1000) / 10}% modeled effective rate`;
+      document.querySelector("#missedCredit").textContent = money(missed);
+      document.querySelector("#successFee").textContent = money(success);
+      document.querySelector("#totalFee").textContent = money(success + retainer);
+      document.querySelector("#annualRev").textContent = money((success + retainer) * 50);
+
+      renderFlags();
+      renderDocs();
+    }
+
+    function renderFlags() {
+      const flags = [
+        { level: "warn", title: "QPF day counts need backup", body: "Separate facility production time from attached office time before claiming the 5% uplift." },
+        { level: "warn", title: "NRCE outreach proof incomplete", body: "Nonresident BTL crew should have 72-hour resident outreach documentation where applicable." },
+        { level: "bad", title: "Post spend may leak out of state", body: "The LA VFX invoice needs New Mexico tax and vendor qualification review before credit modeling." },
+        { level: "warn", title: "SLO workflow not yet confirmed", body: "Nonresident performer loan-out payment should be routed through the Super Loan Out review desk." }
+      ];
+      document.querySelector("#flagCount").textContent = `${flags.length} open`;
+      const list = document.querySelector("#flagsList");
+      list.innerHTML = "";
+      flags.forEach(flag => {
+        const div = document.createElement("div");
+        div.className = "flag";
+        div.innerHTML = `<span class="dot ${flag.level}"></span><div><strong>${flag.title}</strong><p>${flag.body}</p></div>`;
+        list.appendChild(div);
+      });
+    }
+
+    function renderDocs() {
+      const list = document.querySelector("#docList");
+      list.innerHTML = "";
+      docs.forEach((doc, index) => {
+        const label = document.createElement("label");
+        label.className = "check";
+        const isChecked = index < 5;
+        label.innerHTML = `<input type="checkbox" ${isChecked ? "checked" : ""}> ${doc}`;
+        label.querySelector("input").addEventListener("change", updateReadiness);
+        list.appendChild(label);
+      });
+      updateReadiness();
+    }
+
+    function updateReadiness() {
+      const boxes = [...document.querySelectorAll("#docList input")];
+      const checked = boxes.filter(box => box.checked).length;
+      const pct = boxes.length ? Math.round((checked / boxes.length) * 100) : 0;
+      document.querySelector("#readiness").textContent = `${pct}%`;
+    }
+
+    document.querySelector("#addSpend").addEventListener("click", () => {
+      spend.push({
+        vendor: "New Mexico catering vendor",
+        category: "Local vendor",
+        amount: 68000,
+        treatment: "Vendor verification",
+        risk: "good"
+      });
+      render();
+    });
+
+    document.querySelector("#optimize").addEventListener("click", () => {
+      document.querySelector("#baseRate").value = "0.35";
+      render();
+    });
+
+    ["#budget", "#baseRate", "#feeRate", "#retainer"].forEach(selector => {
+      document.querySelector(selector).addEventListener("input", render);
+    });
+
+    render();
+  </script>
+</body>
+</html>
