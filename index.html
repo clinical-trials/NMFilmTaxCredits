@@ -494,6 +494,167 @@
     .status-tile.risk { border-left: 8px solid var(--bad); }
     .status-tile.docs { border-left: 8px solid var(--gold); }
 
+    .savings-board {
+      display: grid;
+      grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .money-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #122820;
+      color: #fff;
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .money-card .kicker {
+      color: #cfe4db;
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .money-range {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .money-range strong {
+      display: block;
+      font-size: clamp(32px, 6vw, 54px);
+      line-height: .95;
+    }
+
+    .money-range span {
+      color: #cfe4db;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .money-range i {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--ink);
+      font-style: normal;
+      font-weight: 950;
+    }
+
+    .savings-note {
+      margin: 0;
+      color: #dcefe7;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .stack-visual {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, rgba(18, 104, 79, .055) 1px, transparent 1px),
+        linear-gradient(rgba(191, 112, 72, .055) 1px, transparent 1px),
+        #fffaf0;
+      background-size: 18px 18px, 18px 18px, auto;
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .stack-row {
+      display: grid;
+      grid-template-columns: 108px 1fr 74px;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .stack-row em {
+      height: 18px;
+      display: block;
+      border-radius: 5px;
+      background: #e7eee9;
+      overflow: hidden;
+      font-style: normal;
+    }
+
+    .stack-row em span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+    }
+
+    .stack-row:nth-child(2) em span { background: var(--gold); }
+    .stack-row:nth-child(3) em span { background: var(--clay); }
+
+    .save-callout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .save-callout b {
+      width: 68px;
+      height: 68px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 24px;
+      box-shadow: 4px 4px 0 rgba(24, 36, 31, .1);
+    }
+
+    .save-callout strong { display: block; font-size: 18px; }
+    .save-callout span { display: block; color: var(--muted); margin-top: 3px; line-height: 1.35; font-size: 13px; }
+
+    .monetization-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .money-path {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 15px;
+      display: grid;
+      gap: 10px;
+      min-height: 168px;
+    }
+
+    .money-path b {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #e7f1eb;
+      color: var(--green);
+      font-size: 18px;
+    }
+
+    .money-path strong { font-size: 17px; line-height: 1.2; }
+    .money-path span { color: var(--muted); line-height: 1.4; font-size: 13px; }
+
     .three, .model { grid-template-columns: repeat(3, 1fr); }
 
     .mini-card {
@@ -695,9 +856,11 @@
     @media (max-width: 980px) {
       header .shell { align-items: flex-start; flex-direction: column; padding: 12px 0; }
       nav { justify-content: flex-start; }
-      .hero-grid, .three, .workflow, .faq-layout, .controls, .role-grid, .visual-band, .signal-grid, .bucket-map, .evidence-rail, .status-strip {
+      .hero-grid, .three, .workflow, .faq-layout, .controls, .role-grid, .visual-band, .signal-grid, .bucket-map, .evidence-rail, .status-strip, .savings-board, .monetization-grid {
         grid-template-columns: 1fr;
       }
+      .money-range { grid-template-columns: 1fr; }
+      .money-range i { display: none; }
       .hero-copy, .credit-card { min-height: auto; }
       .faq-menu { position: static; }
     }
@@ -711,7 +874,7 @@
         <span><strong>CreditOps AI</strong><span>v003-graphic-infoviz</span></span>
       </a>
       <nav aria-label="Page sections">
-        <a href="#how">How it works</a>
+        <a href="#how">Budget savings</a>
         <a href="#spend">Spend review</a>
         <a href="#locations">Locations</a>
         <a href="#faq">Friendly FAQ</a>
@@ -725,18 +888,18 @@
       <div class="shell hero-grid">
         <div class="hero-copy">
           <span class="eyebrow">AI compliance + optimization for New Mexico productions</span>
-          <h1>Maximize the credit. Make the rules readable.</h1>
-          <p class="lead">An evidence-first interface for understanding the New Mexico film credit quickly: official buckets, visual flags, and documentation proof before a production locks spend.</p>
+          <h1>Reduce the net budget. Maximize the New Mexico credit.</h1>
+          <p class="lead">An evidence-first savings tool for New Mexico productions: model the credit, catch budget leakage, and turn qualified spend into verified reimbursement before money is locked.</p>
           <div class="hero-actions">
             <a class="btn primary" href="#faq">Read the quick FAQ</a>
-            <a class="btn" href="#spend">Try the credit model</a>
+            <a class="btn" href="#how">Estimate budget savings</a>
             <a class="btn" href="https://nmfilm.location.pro/list-property">List Your Property for Filming</a>
           </div>
           <div class="signal-grid" aria-label="Fast value summary">
             <div class="signal"><b>25%</b><span>Base direct production and postproduction expenditure line.</span></div>
             <div class="signal"><b>+10</b><span>Certain-area uplift bucket if statutory and Film Office requirements are met.</span></div>
             <div class="signal"><b>+5</b><span>QPF or TV pilot/series bucket. Not both on the same bucket.</span></div>
-            <div class="signal"><b>Proof</b><span>Ledgers, approvals, payroll, SLO, NRCE, post, and uplift support.</span></div>
+            <div class="signal"><b>Save</b><span>Lower the net production budget by protecting every eligible reimbursement dollar.</span></div>
           </div>
           <div class="visual-band" aria-label="New Mexico film economy visuals">
             <figure class="image-card">
@@ -795,8 +958,8 @@
             <div class="bucket nmtc"><strong>20%</strong><span>Federal New Markets Tax Credit overlap limit.</span></div>
           </div>
           <div class="three">
-            <div class="mini-card"><h3 id="missedCredit">$0</h3><p>Potential upside flagged for review.</p></div>
-            <div class="mini-card"><h3 id="successFee">$0</h3><p>Success fee at 2% of modeled recovery.</p></div>
+            <div class="mini-card"><h3 id="missedCredit">$0</h3><p>Potential budget reduction flagged for review.</p></div>
+            <div class="mini-card"><h3 id="successFee">$0</h3><p>Example success fee at 2% of modeled recovery.</p></div>
             <div class="mini-card"><h3 id="docsReady">70%</h3><p>Documentation readiness.</p></div>
           </div>
         </aside>
@@ -807,25 +970,35 @@
       <section class="panel" id="how">
         <div class="section-head">
           <div>
-            <h2>How the tool makes complexity feel manageable</h2>
-            <p>The operational flow stays simple. The expertise lives inside the rule checks, evidence prompts, and source-backed explanations.</p>
+            <h2>Reduce the production budget, not just the paperwork</h2>
+            <p>Upload the budget. Find the leaks. Pay only when verified savings or recovered credit value is achieved.</p>
           </div>
-          <span class="pill">Five-step workflow</span>
+          <span class="pill">Only pay if you save</span>
         </div>
-        <div class="workflow">
-          <div class="step"><b>1</b><strong>Qualify</strong><span>Confirm entity, project type, funding, and registration readiness.</span></div>
-          <div class="step"><b>2</b><strong>Classify</strong><span>Sort payroll, vendor, fringe, post, QPF, certain-area, NRCE, and SLO lines.</span></div>
-          <div class="step"><b>3</b><strong>Optimize</strong><span>Plan eligible spend into base, certain-area, QPF or TV, NRCE, post, and NMTC buckets.</span></div>
-          <div class="step"><b>4</b><strong>Document</strong><span>Build the RPD-41418 evidence package: ledgers, approvals, payroll, SLO, NRCE, post, and uplift support.</span></div>
-          <div class="step"><b>5</b><strong>Submit</strong><span>Track the one-year filing window and the 120-day TRD determination period for complete applications.</span></div>
+        <div class="savings-board">
+          <div class="money-card">
+            <span class="kicker">Modeled net-budget reduction</span>
+            <div class="money-range" aria-label="Modeled credit range on ten million dollars of eligible New Mexico spend">
+              <div><strong>$2.5M</strong><span>25% modeled base credit on $10M eligible NM spend</span></div>
+              <i>to</i>
+              <div><strong>$4.0M</strong><span>40% modeled top scenario if each uplift bucket qualifies</span></div>
+            </div>
+            <p class="savings-note">The filmmaker sees a practical budget question: how much of this New Mexico spend can come back, what lines are leaking value, and what evidence is missing before the claim is filed?</p>
+          </div>
+          <div class="stack-visual" aria-label="Credit stack visualization">
+            <div class="stack-row"><span>Base bucket</span><em><span style="width:62.5%"></span></em><strong>25%</strong></div>
+            <div class="stack-row"><span>QPF or TV</span><em><span style="width:12.5%"></span></em><strong>+5%</strong></div>
+            <div class="stack-row"><span>Certain-area</span><em><span style="width:25%"></span></em><strong>+10%</strong></div>
+            <div class="save-callout">
+              <b>$</b>
+              <div><strong>Up to $1.5M modeled budget reduction over the base scenario on $10M eligible spend.</strong><span>Assumption: this visual shows arithmetic only. The real claim depends on official eligibility, approvals, spend location, documentation, and caps shown in the source library.</span></div>
+            </div>
+          </div>
         </div>
-        <div class="evidence-rail" aria-label="RPD-41418 evidence rail">
-          <div class="evidence"><i>1</i><strong>Approval memo</strong><span>Film Office approval starts the evidence path.</span></div>
-          <div class="evidence"><i>2</i><strong>Excel ledgers</strong><span>Payroll, AP, petty cash, SLO, NRCE, post, and uplifts tie back to the claim.</span></div>
-          <div class="evidence"><i>3</i><strong>NRCE approval</strong><span>Nonresident crew exception lines need NM Film Office approval.</span></div>
-          <div class="evidence"><i>4</i><strong>CPA report</strong><span>Attach completed CPA report when required.</span></div>
-          <div class="evidence"><i>5</i><strong>Tax authorization</strong><span>TIA if applicable so TRD can discuss the account.</span></div>
-          <div class="evidence"><i>6</i><strong>Complete filing</strong><span>Required documentation must be submitted for a complete application.</span></div>
+        <div class="monetization-grid" aria-label="Ways the website can monetize filmmaker savings">
+          <div class="money-path"><b>1</b><strong>Upload the budget</strong><span>Free savings estimate: import top-sheet, payroll, AP, vendor, post, location, QPF, SLO, and NRCE lines to show a plain-English reimbursement range.</span></div>
+          <div class="money-path"><b>2</b><strong>Find budget leaks</strong><span>Flag eligible spend sitting in the wrong bucket, missing documentation, weak vendor coding, timing risk, and lines that may be moved or supported before spend locks.</span></div>
+          <div class="money-path"><b>3</b><strong>Pay only when you save</strong><span>Offer a bill-reduction-style option: no success fee unless recovered or protected credit value is achieved under agreed terms.</span></div>
         </div>
       </section>
 
@@ -927,8 +1100,9 @@
           <a href="https://nmfilm.com/incentives/nonresident-below-the-line-crew-credit-nrce">NMFO NRCE</a>
           <a href="https://film.ca.gov/tax-credit/the-basics-4-0/">California Program 4.0</a>
           <a href="https://nmfilm.location.pro/list-property">NM Location Pro</a>
+          <a href="https://www.ownwell.com/bills">Ownwell bill-reduction model</a>
         </div>
-        <p class="tiny">Prototype note: this is a product design and demonstration model, not tax, legal, or accounting advice.</p>
+        <p class="tiny">Prototype note: this is a product design and demonstration model, not tax, legal, or accounting advice. Ownwell is referenced only as a business-model and user-experience inspiration; New Mexico credit claims should be controlled by NMFO, TRD, forms, and applicable law.</p>
       </section>
     </div>
   </main>

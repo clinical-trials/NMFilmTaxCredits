@@ -26,3 +26,5 @@
 - Status: Current public homepage
 - Description: Front-end refinement of v002 focused on reducing text heaviness and increasing information visualization. Adds visual signal tiles, official RPD-41418 bucket map, evidence rail, and spend-review status strip while preserving the Credit Snapshot as the anchor.
 - Evidence note: No new tax-credit claims were added beyond the RPD-41418 bucket structure already documented in v002.
+- Update: Replaced the heavy "How the tool makes complexity feel manageable" workflow with a money-first filmmaker savings section: modeled 25%-40% reimbursement range, modeled upside over the base scenario, and three monetization paths: free savings estimate, production-support retainer, and success fee on recovered/protected credit value.
+- Update: Reframed the section around budget reduction using Ownwell's bill-reduction model as UX/business inspiration: upload the budget, find budget leaks, and monetize only around recovered/protected value when agreed savings is achieved. Ownwell is cited as inspiration only, not tax authority.
